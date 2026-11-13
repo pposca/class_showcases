@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>E1.3. HTML5 Semántico — Guía de Errores Frecuentes y Buenas Prácticas</title>
+  <link rel="stylesheet" href="static/css/styles.css">
+  <script defer src="static/js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-badge-row">
+        <span class="badge badge-info">DIW · CFGS DAW · UD1</span>
+      </div>
+      <h1>Guía de Errores Frecuentes y Buenas Prácticas en HTML5 Semántico</h1>
+      <p class="header-lead">
+        Material de refuerzo elaborado a partir de las entregas reales de la práctica <strong>E1.3</strong>.
+        Reúne los errores más habituales (con código <strong>❌ Mal</strong> vs <strong>✅ Bien</strong> e ilustraciones de los diseños),
+        las observaciones formativas que debes tener en cuenta y los puntos fuertes más destacados.
+      </p>
+      <div class="header-actions">
+        <a class="btn-primary" href="https://docs.google.com/document/d/1O6hvk1xvTAzDDh2CslZuw5PBX_h-I_YYncOE-XWkxMU/edit?tab=t.0#heading=h.4ppt8pmb47wu" target="_blank" rel="noopener noreferrer">
+          Consultar Documento de Teoría (T1.3)
+        </a>
+        <button type="button" class="btn-secondary" id="mobile-toc-btn" aria-expanded="false" aria-controls="indice-lateral">
+          Índice de Contenidos
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-layout">
+    <aside class="sidebar" id="indice-lateral">
+      <div class="sidebar-controls">
+        <div class="theme-switcher" role="group" aria-label="Selector de tema visual">
+          <button type="button" data-theme-choice="system" aria-pressed="true" title="Usar preferencia del sistema">Sistema</button>
+          <button type="button" data-theme-choice="light" aria-pressed="false" title="Tema claro">Claro</button>
+          <button type="button" data-theme-choice="dark" aria-pressed="false" title="Tema oscuro">Oscuro</button>
+        </div>
+
+        <label class="search-label" for="search-input">Buscar etiqueta o concepto</label>
+        <input type="search" id="search-input" class="search-input" placeholder="Ej: article, section, p, h1, nav..." autocomplete="off">
+
+        <div class="filter-pills" role="group" aria-label="Filtrar por categoría">
+          <button type="button" class="filter-pill is-active" data-filter="all">Todos</button>
+          <button type="button" class="filter-pill" data-filter="muy-grave">Muy Graves</button>
+          <button type="button" class="filter-pill" data-filter="grave">Graves</button>
+          <button type="button" class="filter-pill" data-filter="leve">Leves</button>
+          <button type="button" class="filter-pill" data-filter="observacion">Observaciones</button>
+          <button type="button" class="filter-pill" data-filter="fuerte">Puntos Fuertes</button>
+        </div>
+      </div>
+
+      <nav class="toc-nav" aria-label="Índice de secciones">
+        <h2 class="toc-title">Contenido de la Guía</h2>
+        <ul class="toc-list">
+          <li><a href="#reglas-oro">1. Reglas de Oro</a></li>
+          <li>
+            <a href="#muy-graves">2. Errores Muy Graves</a>
+            <ul>
+              <li><a href="#caso-2-1">2.1. Omitir &lt;article&gt; en unidades autónomas</a></li>
+              <li><a href="#caso-2-2">2.2. Omitir &lt;section&gt; o cerrar &lt;/body&gt; antes</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#graves">3. Errores Graves</a>
+            <ul>
+              <li><a href="#caso-3-1">3.1. Antipatrón &lt;section&gt; con 1 hijo &lt;article&gt;</a></li>
+              <li><a href="#caso-3-2">3.2. Secciones y artículos sin &lt;hx&gt;</a></li>
+              <li><a href="#caso-3-3">3.3. Ubicación de &lt;h1&gt; y jerarquía &lt;hx&gt;</a></li>
+              <li><a href="#caso-3-4">3.4. Encabezados seguidos y &lt;hx&gt; visuales</a></li>
+              <li><a href="#caso-3-5">3.5. Colecciones (&gt; 3) sin &lt;ul&gt; e hijos inválidos</a></li>
+              <li><a href="#caso-3-6">3.6. Clases CSS, wrappers y etiquetas visuales</a></li>
+              <li><a href="#caso-3-7">3.7. &lt;a&gt;, &lt;button&gt;, &lt;form&gt; y &lt;label&gt;</a></li>
+              <li><a href="#caso-3-8">3.8. Errores con imágenes (&lt;img&gt;)</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#leves">4. Errores Leves</a>
+            <ul>
+              <li><a href="#caso-4-1">4.1. Abuso de &lt;p&gt; vs &lt;div&gt;</a></li>
+              <li><a href="#caso-4-2">4.2. &lt;address&gt;, &lt;time&gt;, &lt;cite&gt;, &lt;del&gt;, &lt;mark&gt;</a></li>
+              <li><a href="#caso-4-3">4.3. Formato, indentación y limpieza</a></li>
+            </ul>
+          </li>
+          <li><a href="#observaciones">5. Observaciones sin Penalización</a></li>
+          <li><a href="#puntos-fuertes">6. Puntos Fuertes Destacados</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main id="contenido-principal" class="main-content">
+      <div id="empty-search-state" class="empty-state" hidden>
+        <p>No hay casos que coincidan con tu búsqueda o filtro actual. Prueba con otra etiqueta o pulsa en <strong>Todos</strong>.</p>
+      </div>
+
+      <!-- SECCIÓN 1: REGLAS DE ORO -->
+      <section id="reglas-oro" tabindex="-1" class="guide-section" data-category="all">
+        <div class="section-header">
+          <span class="section-tag tag-info">Fundamentos</span>
+          <h2>1. Resumen Ejecutivo y Reglas de Oro del HTML5 Semántico</h2>
+        </div>
+        <p>
+          El error conceptual más repetido en la práctica es <strong>maquetar mirando las cajas visuales del diseño</strong>
+          en lugar de analizar el <strong>significado y la función de cada bloque de contenido</strong>. El HTML5 semántico
+          no sirve para dibujar columnas, recuadros ni espaciados (eso pertenece exclusivamente al CSS); sirve para construir
+          un árbol lógico y accesible comprensible por navegadores, buscadores y lectores de pantalla.
+        </p>
+
+        <div class="principles-grid">
+          <article class="principle-card">
+            <h3>Separación total HTML / CSS</h3>
+            <p>Nada de etiquetas <code>&lt;style&gt;</code>, atributos <code>style</code>, <code>class</code>, <code>id</code> para estilo, <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code> ni <code>&lt;br&gt;</code> como espaciador. Los <code>id</code> solo se usan para vincular controles de formulario (<code>&lt;label for="..."&gt;</code>) o anclas reales.</p>
+          </article>
+          <article class="principle-card">
+            <h3>Jerarquía estricta de encabezados</h3>
+            <p>Un único <code>&lt;h1&gt;</code> para la marca/título principal en el <code>&lt;header&gt;</code>. Cada <code>&lt;section&gt;</code> y <code>&lt;article&gt;</code> lleva su propio <code>&lt;hx&gt;</code> descendente sin saltar niveles ni encadenar dos encabezados seguidos.</p>
+          </article>
+          <article class="principle-card">
+            <h3>&lt;section&gt; vs &lt;article&gt; vs &lt;aside&gt;</h3>
+            <p><code>&lt;section&gt;</code> agrupa contenido temáticamente relacionado dentro de la página. <code>&lt;article&gt;</code> identifica unidades autónomas reutilizables (productos, noticias, testimonios). <code>&lt;aside&gt;</code> marca contenido complementario o promocional lateral.</p>
+          </article>
+          <article class="principle-card">
+            <h3>&lt;p&gt; vs &lt;div&gt;</h3>
+            <p>Reserva <code>&lt;p&gt;</code> únicamente para verdaderos párrafos de prosa que forman parte de un texto. Para líneas sueltas, precios, valoraciones, categorías o enlaces CTA, utiliza <code>&lt;div&gt;</code> o la etiqueta inline adecuada.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: ERRORES MUY GRAVES -->
+      <section id="muy-graves" tabindex="-1" class="guide-section" data-category="muy-grave">
+        <div class="section-header">
+          <span class="section-tag tag-muy-grave">Errores Muy Graves (-0,75 p.)</span>
+          <h2>2. Errores Muy Graves: Ausencia de Estructuras Nucleares</h2>
+        </div>
+        <p>
+          Afectan a la omisión total de los elementos estructurales esenciales del documento HTML5 o a errores críticos de sintaxis estructural.
+        </p>
+
+        <!-- Caso 2.1 -->
+        <article id="caso-2-1" class="case-card" data-category="muy-grave" data-keywords="article producto catalogo blog testimonio li h3">
+          <header class="case-header">
+            <span class="severity-pill pill-muy-grave">Muy Grave · -0,75 p.</span>
+            <h3>2.1. No detectar unidades autónomas evidentes (&lt;article&gt;)</h3>
+          </header>
+          <p class="case-desc">
+            En rejillas de productos, listas de noticias del blog, servicios, fichas de equipo o tarjetas de logros/testimonios, es muy frecuente dejar cada elemento dentro de un simple <code>&lt;li&gt;</code> o <code>&lt;div&gt;</code> con etiquetas <code>&lt;p&gt;</code> sueltas, omitiendo tanto el <code>&lt;article&gt;</code> como su encabezado <code>&lt;h3&gt;</code>.
+            Cada tarjeta de producto o entrada de blog tiene entidad propia e independiente: <strong>si tiene título propio, imagen, descripción o precio y podría compartirse de forma aislada, es un <code>&lt;article&gt;</code></strong>.
+          </p>
+
+          <figure class="design-figure">
+            <img src="static/img/caso-2-1-catalogo-articles.png" alt="Maqueta de catálogo Featured Products con cuatro tarjetas de productos recuadradas" loading="lazy">
+            <figcaption>Ejemplo de diseño: toda la zona recuadrada forma la <code>&lt;section&gt;</code> <em>Featured Products</em> y cada una de las 4 tarjetas es un <code>&lt;article&gt;</code> dentro de un <code>&lt;li&gt;</code> de la lista <code>&lt;ul&gt;</code>.</figcaption>
+          </figure>
+
+          <div class="comparison-grid">
+            <div class="code-box code-bad">
+              <div class="code-box-header">
+                <span>❌ Mal (Omisión de &lt;article&gt;, &lt;h3&gt; y abuso de &lt;p&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;section&gt;
+  &lt;p&gt;All Styles in This Spring&lt;/p&gt;
+  &lt;h2&gt;Featured Products&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;img src="bolso.jpg" alt="Bolso"&gt;
+      &lt;p&gt;Running&lt;/p&gt;
+      &lt;p&gt;Fleece Badge Of Sport Graphic Hoodie&lt;/p&gt;
+      &lt;p&gt;$40.00&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;img src="sandalia.jpg" alt="Sandalia"&gt;
+      &lt;p&gt;Outerwear&lt;/p&gt;
+      &lt;p&gt;Men's Rugged Workwear Graphic Hoodie&lt;/p&gt;
+      &lt;p&gt;$59.99&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;img src="blusa.jpg" alt="Blusa"&gt;
+      &lt;p&gt;Sweatshirt&lt;/p&gt;
+      &lt;p&gt;Men's Rain Defender Rockland Sherpa-Lined&lt;/p&gt;
+      &lt;p&gt;$40.00 $350.00&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;img src="panuelo.jpg" alt="Pañuelo"&gt;
+      &lt;p&gt;Running&lt;/p&gt;
+      &lt;p&gt;Men's Sportswear 2019 Hooded Windrunner Jacket&lt;/p&gt;
+      &lt;p&gt;$40.00&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+            <div class="code-box code-good">
+              <div class="code-box-header">
+                <span>✅ Bien (Lista &lt;ul&gt; con los 4 &lt;article&gt; completos y su &lt;h3&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;section&gt;
+  &lt;div&gt;All Styles in This Spring&lt;/div&gt;
+  &lt;h2&gt;Featured Products&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;article&gt;
+        &lt;img src="bolso.jpg" alt="Bolso de piel beige"&gt;
+        &lt;div&gt;Valoración: 4 de 5 estrellas&lt;/div&gt;
+        &lt;div&gt;Running&lt;/div&gt;
+        &lt;h3&gt;&lt;a href="#"&gt;Fleece Badge Of Sport Graphic Hoodie&lt;/a&gt;&lt;/h3&gt;
+        &lt;div&gt;$40.00&lt;/div&gt;
+      &lt;/article&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;article&gt;
+        &lt;img src="sandalia.jpg" alt="Sandalia minimalista beige"&gt;
+        &lt;div&gt;Valoración: 4 de 5 estrellas&lt;/div&gt;
+        &lt;div&gt;Outerwear&lt;/div&gt;
+        &lt;h3&gt;&lt;a href="#"&gt;Men's Rugged Workwear Graphic Hoodie&lt;/a&gt;&lt;/h3&gt;
+        &lt;div&gt;$59.99&lt;/div&gt;
+      &lt;/article&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;article&gt;
+        &lt;img src="blusa.jpg" alt="Blusa fluida color crema"&gt;
+        &lt;div&gt;Valoración: 4 de 5 estrellas&lt;/div&gt;
+        &lt;div&gt;Sweatshirt&lt;/div&gt;
+        &lt;h3&gt;&lt;a href="#"&gt;Men's Rain Defender Rockland Sherpa-Lined&lt;/a&gt;&lt;/h3&gt;
+        &lt;div&gt;&lt;ins&gt;$40.00&lt;/ins&gt; &lt;del&gt;$350.00&lt;/del&gt;&lt;/div&gt;
+      &lt;/article&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;article&gt;
+        &lt;img src="panuelo.jpg" alt="Pañuelo estampado de seda"&gt;
+        &lt;div&gt;Valoración: 4 de 5 estrellas&lt;/div&gt;
+        &lt;div&gt;Running&lt;/div&gt;
+        &lt;h3&gt;&lt;a href="#"&gt;Men's Sportswear 2019 Hooded Windrunner Jacket&lt;/a&gt;&lt;/h3&gt;
+        &lt;div&gt;$40.00&lt;/div&gt;
+      &lt;/article&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caso 2.2 -->
+        <article id="caso-2-2" class="case-card" data-category="muy-grave" data-keywords="section div body footer main divitis">
+          <header class="case-header">
+            <span class="severity-pill pill-muy-grave">Muy Grave · -0,75 p.</span>
+            <h3>2.2. Omitir &lt;section&gt; evidentes o colocar landmarks fuera de &lt;body&gt;</h3>
+          </header>
+          <p class="case-desc">
+            Se comete este error en dos situaciones críticas: cuando un bloque temático claro (por ejemplo, una sección de servicios o el catálogo principal) se deja disuelto en un <code>&lt;div&gt;</code> genérico sin <code>&lt;section&gt;</code>, o cuando se cierra la etiqueta <code>&lt;/body&gt;</code> antes de tiempo y se deja el <code>&lt;footer&gt;</code> u otra sección fuera del cuerpo del documento.
+          </p>
+
+          <figure class="design-figure">
+            <img src="static/img/caso-2-2-secciones-landmarks.png" alt="Maqueta de página con la sección Our Services recuadrada en main y el pie de página Información legal recuadrado dentro de body" loading="lazy">
+            <figcaption>Ejemplo de diseño: ① el bloque <em>Our Services</em> debe ir en una <code>&lt;section&gt;</code> dentro de <code>&lt;main&gt;</code>; ② el <code>&lt;footer&gt;</code> debe quedar siempre antes del cierre <code>&lt;/body&gt;</code>.</figcaption>
+          </figure>
+
+          <div class="comparison-grid">
+            <div class="code-box code-bad">
+              <div class="code-box-header">
+                <span>❌ Mal (Bloques en &lt;div&gt; y &lt;footer&gt; fuera de &lt;body&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>  &lt;main&gt;
+    &lt;!-- ① Falta &lt;section&gt; --&gt;
+    &lt;div&gt;
+      &lt;h2&gt;Our Services&lt;/h2&gt;
+      &lt;p&gt;Soluciones digitales a medida&lt;/p&gt;
+      &lt;div&gt;
+        &lt;h3&gt;Consultoría Web&lt;/h3&gt;
+        &lt;p&gt;Auditoría estructural, arquitectura semántica y mejora continua del rendimiento.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3&gt;Diseño UI/UX&lt;/h3&gt;
+        &lt;p&gt;Prototipado accesible centrado en la legibilidad y en jerarquías visuales claras.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3&gt;Arquitectura Cloud&lt;/h3&gt;
+        &lt;p&gt;Despliegue escalable, automatizado y monitorizado de aplicaciones empresariales.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;!-- ② &lt;footer&gt; fuera de &lt;body&gt; y sin &lt;section&gt;/&lt;h2&gt; --&gt;
+&lt;footer&gt;
+  &lt;div&gt;Información legal&lt;/div&gt;
+  &lt;div&gt;Copyright 2026 · Todos los derechos reservados&lt;/div&gt;
+&lt;/footer&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+            <div class="code-box code-good">
+              <div class="code-box-header">
+                <span>✅ Bien (&lt;section&gt; semántica y &lt;footer&gt; dentro de &lt;body&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>  &lt;main&gt;
+    &lt;!-- ① Bloque Our Services en &lt;section&gt; con &lt;ul&gt;&lt;li&gt;&lt;article&gt; --&gt;
+    &lt;section&gt;
+      &lt;h2&gt;Our Services&lt;/h2&gt;
+      &lt;div&gt;Soluciones digitales a medida&lt;/div&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;article&gt;
+            &lt;h3&gt;Consultoría Web&lt;/h3&gt;
+            &lt;p&gt;Auditoría estructural, arquitectura semántica y mejora continua del rendimiento.&lt;/p&gt;
+          &lt;/article&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;article&gt;
+            &lt;h3&gt;Diseño UI/UX&lt;/h3&gt;
+            &lt;p&gt;Prototipado accesible centrado en la legibilidad y en jerarquías visuales claras.&lt;/p&gt;
+          &lt;/article&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;article&gt;
+            &lt;h3&gt;Arquitectura Cloud&lt;/h3&gt;
+            &lt;p&gt;Despliegue escalable, automatizado y monitorizado de aplicaciones empresariales.&lt;/p&gt;
+          &lt;/article&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+  &lt;!-- ② &lt;footer&gt; completo dentro de &lt;body&gt; --&gt;
+  &lt;footer&gt;
+    &lt;section&gt;
+      &lt;h2&gt;Información legal&lt;/h2&gt;
+      &lt;small&gt;Copyright 2026 · Todos los derechos reservados&lt;/small&gt;
+    &lt;/section&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- SECCIÓN 3: ERRORES GRAVES -->
+      <section id="graves" tabindex="-1" class="guide-section" data-category="grave">
+        <div class="section-header">
+          <span class="section-tag tag-grave">Errores Graves (-0,50 p. / -1,00 p. si &ge; 5)</span>
+          <h2>3. Errores Graves de Estructura, Jerarquía y Semántica</h2>
+        </div>
+
+        <!-- Caso 3.1 -->
+        <article id="caso-3-1" class="case-card case-highlight" data-category="grave" data-keywords="section article wrapper unico hijo banner patron">
+          <header class="case-header">
+            <span class="severity-pill pill-grave">Grave · Patrón Crítico</span>
+            <h3>3.1. Antipatrón: &lt;section&gt; envolviendo a un único hijo &lt;article&gt; (y confusión entre ambos)</h3>
+          </header>
+          <p class="case-desc">
+            Uno de los errores más frecuentes consiste en crear un <code>&lt;section&gt;</code> y meter dentro <strong>un único elemento <code>&lt;article&gt;</code></strong> (por ejemplo en un banner Hero, un banner promocional intermedio o un bloque de empresa), o abrir una subsección vacía únicamente para envolver la lista de tarjetas que ya pertenece a la sección padre.
+            <strong>Regla práctica:</strong> cuando una <code>&lt;section&gt;</code> tiene un único hijo <code>&lt;article&gt;</code> (o al revés), <strong>esa estructura casi siempre está mal y sobra una de las dos etiquetas</strong>. Un banner promocional propio de la web forma parte de ella (es una <code>&lt;section&gt;</code>), no un artículo independiente.
+          </p>
+
+          <figure class="design-figure">
+            <img src="static/img/caso-3-1-banner-unico-hijo.png" alt="Maqueta del banner promocional The Most Stylish recuadrado como una única section" loading="lazy">
+            <figcaption>Ejemplo de diseño: todo el banner recuadrado forma una <code>&lt;section&gt;</code> directa con su <code>&lt;h2&gt;</code>; no debe llevar un <code>&lt;article&gt;</code> único dentro.</figcaption>
+          </figure>
+
+          <div class="comparison-grid">
+            <div class="code-box code-bad">
+              <div class="code-box-header">
+                <span>❌ Mal (&lt;section&gt; con 1 único hijo &lt;article&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;!-- Sobra el &lt;article&gt; y además deja el &lt;section&gt; sin hx --&gt;
+&lt;section&gt;
+  &lt;article&gt;
+    &lt;p&gt;Trend &amp;amp; Fashion Guide&lt;/p&gt;
+    &lt;h2&gt;The Most Stylish&lt;/h2&gt;
+    &lt;a href="#"&gt;Explore Now&lt;/a&gt;
+    &lt;img src="most-stylish.jpg" alt="Modelo con vestido de rayas"&gt;
+  &lt;/article&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+            <div class="code-box code-good">
+              <div class="code-box-header">
+                <span>✅ Bien (&lt;section&gt; directa sin &lt;article&gt; redundante)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;section&gt;
+  &lt;div&gt;Trend &amp;amp; Fashion Guide&lt;/div&gt;
+  &lt;h2&gt;The Most Stylish&lt;/h2&gt;
+  &lt;a href="#"&gt;Explore Now&lt;/a&gt;
+  &lt;img src="most-stylish.jpg" alt="Modelo con vestido de rayas"&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caso 3.2 -->
+        <article id="caso-3-2" class="case-card" data-category="grave" data-keywords="section article hx h2 h3 titulo aria-label sin encabezado">
+          <header class="case-header">
+            <span class="severity-pill pill-grave">Grave · -0,50 p.</span>
+            <h3>3.2. Secciones (&lt;section&gt;) o artículos (&lt;article&gt;) sin encabezado &lt;hx&gt; propio</h3>
+          </header>
+          <p class="case-desc">
+            Tanto <code>&lt;section&gt;</code> como <code>&lt;article&gt;</code> deben llevar obligatoriamente su propio encabezado (<code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>...) que identifique su temática. Es muy común omitir el título cuando el diseño visual no lo muestra impreso (como en la fila de logotipos de marcas, ventajas o copyright) o intentar sustituirlo por un atributo <code>aria-label</code>.
+            <strong>Si el diseño no tiene título visible en esa sección, debes crear igualmente un <code>&lt;h2&gt;</code> descriptivo en el HTML</strong> (luego en CSS se ocultaría visualmente si hiciera falta, pero semánticamente debe existir).
+          </p>
+
+          <figure class="design-figure">
+            <img src="static/img/caso-3-2-seccion-sin-hx-logos.png" alt="Maqueta de sección About Us y franja inferior recuadrada con 7 logotipos de marcas sin título visible" loading="lazy">
+            <figcaption>Ejemplo de diseño: aunque la franja recuadrada de los 7 logotipos no muestre título visible en el diseño, debe llevar un <code>&lt;h2&gt;</code> descriptivo dentro de su <code>&lt;section&gt;</code> y una lista <code>&lt;ul&gt;</code> con los 7 logotipos.</figcaption>
+          </figure>
+
+          <div class="comparison-grid">
+            <div class="code-box code-bad">
+              <div class="code-box-header">
+                <span>❌ Mal (Sin &lt;h2&gt;, usando aria-label y una sola &lt;img&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;section aria-label="Marcas"&gt;
+  &lt;img src="todos-los-logos.png" alt="Quickie Coin, WGX, SpinZone, Vanguard, High Tech, The Laundry Studio y Reliable Wash"&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+            <div class="code-box code-good">
+              <div class="code-box-header">
+                <span>✅ Bien (&lt;section&gt; con &lt;h2&gt; propio y los 7 logotipos en &lt;ul&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;section&gt;
+  &lt;h2&gt;Nuestras marcas colaboradoras&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;img src="logo-quickie.png" alt="Quickie Coin Laundry"&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;img src="logo-wgx.png" alt="WGX Laundry"&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;img src="logo-spinzone.png" alt="SpinZone Clean Tech"&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;img src="logo-vanguard.png" alt="Vanguard Laundry Services"&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;img src="logo-hightech.png" alt="High Tech Laundry"&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;img src="logo-studio.png" alt="The Laundry Studio"&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;img src="logo-reliable.png" alt="Reliable Wash"&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caso 3.3 -->
+        <article id="caso-3-3" class="case-card" data-category="grave" data-keywords="h1 h2 h3 title header hero jerarquia salto footer">
+          <header class="case-header">
+            <span class="severity-pill pill-grave">Grave · -0,50 p.</span>
+            <h3>3.3. Mala ubicación de &lt;h1&gt;, falta de &lt;title&gt; y saltos en la jerarquía &lt;hx&gt;</h3>
+          </header>
+          <p class="case-desc">
+            Se han repetido cuatro fallos ligados al árbol de encabezados:
+          </p>
+          <ul class="bullet-list">
+            <li><strong>Poner el <code>&lt;h1&gt;</code> en el eslogan del banner Hero:</strong> el <code>&lt;h1&gt;</code> corresponde al nombre/logotipo de la marca principal en el <code>&lt;header&gt;</code>; el titular del banner inicial debe ser un <code>&lt;h2&gt;</code>.</li>
+            <li><strong>Usar varios <code>&lt;h1&gt;</code> o ninguno</strong>, o dejar un <code>&lt;title&gt;</code> genérico como <em>"Document"</em>.</li>
+            <li><strong>Saltos de nivel o niveles distintos entre hermanos:</strong> pasar de <code>&lt;h1&gt;</code> a <code>&lt;h3&gt;</code> (por ejemplo en el <code>&lt;footer&gt;</code> sin <code>&lt;h2&gt;</code> previo), o dar <code>&lt;h2&gt;</code> al primer hermano y <code>&lt;h3&gt;</code> a los cuatro siguientes dentro del mismo bloque.</li>
+            <li><strong>Volcar todo en el <code>&lt;header&gt;</code> sin estructurar sus franjas en <code>&lt;section&gt;</code>.</strong></li>
+          </ul>
+
+          <figure class="design-figure">
+            <img src="static/img/caso-3-3-cabecera-hero-jerarquia.png" alt="Maqueta de cabecera APAR con zonas recuadradas: 1 marca h1 en header, 2 banner Lazang Class h2 en main, y 3 columna Help and Support h2 en footer" loading="lazy">
+            <figcaption>Los tres recuadros muestran los bloques analizados en el código: ① marca <em>APAR - New &amp; Used Auto Part</em> como <code>&lt;h1&gt;</code> en <code>&lt;header&gt;</code>; ② banner Hero <em>Lazang Class</em> como <code>&lt;h2&gt;</code> en <code>&lt;main&gt;</code>; y ③ bloque <em>Help &amp; Support</em> como <code>&lt;nav&gt;&lt;h2&gt;</code> en <code>&lt;footer&gt;</code>.</figcaption>
+          </figure>
+
+          <div class="comparison-grid">
+            <div class="code-box code-bad">
+              <div class="code-box-header">
+                <span>❌ Mal (&lt;h1&gt; en el Hero ② y salto a &lt;h3&gt; en footer ③)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;header&gt;
+  &lt;img src="logo-apar.png" alt="APAR - New &amp;amp; Used Auto Part"&gt;
+&lt;/header&gt;
+&lt;main&gt;
+  &lt;section&gt;
+    &lt;div&gt;Interior items for&lt;/div&gt;
+    &lt;h1&gt;Lazang Class&lt;/h1&gt;
+    &lt;a href="#"&gt;Shop Now&lt;/a&gt;
+    &lt;img src="ruedas-lazang.png" alt="Llantas de aleación Lazang"&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+  &lt;section&gt;
+    &lt;h3&gt;Help &amp;amp; Support&lt;/h3&gt;
+    &lt;a href="#"&gt;Order Tracking&lt;/a&gt;
+    &lt;a href="#"&gt;Shipping Info&lt;/a&gt;
+    &lt;a href="#"&gt;Returns&lt;/a&gt;
+    &lt;a href="#"&gt;Warranty&lt;/a&gt;
+  &lt;/section&gt;
+&lt;/footer&gt;</code></pre>
+            </div>
+            <div class="code-box code-good">
+              <div class="code-box-header">
+                <span>✅ Bien (① &lt;h1&gt; en marca, ② &lt;h2&gt; en Hero y ③ &lt;h2&gt; en footer)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;header&gt;
+  &lt;h1&gt;&lt;a href="#"&gt;&lt;img src="logo-apar.png" alt="APAR - New &amp;amp; Used Auto Part"&gt;&lt;/a&gt;&lt;/h1&gt;
+&lt;/header&gt;
+&lt;main&gt;
+  &lt;section&gt;
+    &lt;div&gt;Interior items for&lt;/div&gt;
+    &lt;h2&gt;Lazang Class&lt;/h2&gt;
+    &lt;a href="#"&gt;Shop Now&lt;/a&gt;
+    &lt;img src="ruedas-lazang.png" alt="Llantas de aleación Lazang"&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+  &lt;nav&gt;
+    &lt;h2&gt;Help &amp;amp; Support&lt;/h2&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Order Tracking&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Shipping Info&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Returns&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Warranty&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/footer&gt;</code></pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caso 3.4 -->
+        <article id="caso-3-4" class="case-card" data-category="grave" data-keywords="hx h2 h3 consecutivos seguidos formato estadisticas cifras">
+          <header class="case-header">
+            <span class="severity-pill pill-grave">Grave · -0,50 p.</span>
+            <h3>3.4. Encabezados &lt;hx&gt; consecutivos sin contenido o usados por tamaño visual</h3>
+          </header>
+          <p class="case-desc">
+            Nunca pueden colocarse dos encabezados seguidos sin contenido intermedio (por ejemplo usar un <code>&lt;h2&gt;</code> para el antetítulo en mayúsculas y un <code>&lt;h3&gt;</code> justo debajo para el título real, o poner <code>&lt;h3&gt;Since 1992.&lt;/h3&gt;</code> debajo del <code>&lt;h2&gt;</code>). Tampoco debe usarse un <code>&lt;hx&gt;</code> únicamente para agrandar una cifra numérica estadística (<code>&lt;h3&gt;1.5k&lt;/h3&gt;</code>).
+          </p>
+
+          <figure class="design-figure">
+            <img src="static/img/caso-3-4-hx-consecutivos-estadisticas.png" alt="Maqueta de logros con recuadros en el encabezado Our Achievements Building Excellence Since 1992 y en la primera tarjeta 1.5k Designed buildings" loading="lazy">
+            <figcaption>Recuadros ① y ②: en ①, el antetítulo <em>Our Achievements</em> va en <code>&lt;div&gt;</code> y el título en <code>&lt;h2&gt;</code> (nunca dos <code>&lt;hx&gt;</code> seguidos); en ② se detalla la primera tarjeta de estadística (<code>1.5k</code> en <code>&lt;strong&gt;</code> y <em>Designed buildings</em> en <code>&lt;h3&gt;</code>), patrón idéntico al de las otras dos tarjetas de la fila.</figcaption>
+          </figure>
+
+          <div class="comparison-grid">
+            <div class="code-box code-bad">
+              <div class="code-box-header">
+                <span>❌ Mal (Dos &lt;hx&gt; seguidos en ① y &lt;h3&gt; para cifra en ②)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;section&gt;
+  &lt;h2&gt;Our Achievements&lt;/h2&gt;
+  &lt;h3&gt;Building Excellence Since 1992&lt;/h3&gt;
+  &lt;div&gt;
+    &lt;h3&gt;1.5k&lt;/h3&gt;
+    &lt;p&gt;Designed buildings&lt;/p&gt;
+    &lt;p&gt;Our company was founded on the principles of honest work and quality workmanship.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+            <div class="code-box code-good">
+              <div class="code-box-header">
+                <span>✅ Bien (① &lt;div&gt; + &lt;h2&gt; y ② &lt;strong&gt; + &lt;h3&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;section&gt;
+  &lt;div&gt;Our Achievements&lt;/div&gt;
+  &lt;h2&gt;Building Excellence Since &lt;time datetime="1992"&gt;1992&lt;/time&gt;&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;article&gt;
+        &lt;strong&gt;1.5k&lt;/strong&gt;
+        &lt;h3&gt;Designed buildings&lt;/h3&gt;
+        &lt;p&gt;Our company was founded on the principles of honest work and quality workmanship.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caso 3.5 -->
+        <article id="caso-3-5" class="case-card" data-category="grave" data-keywords="ul ol li dl dt dd lista hermanos mas de 3">
+          <header class="case-header">
+            <span class="severity-pill pill-grave">Grave · -0,50 p.</span>
+            <h3>3.5. No usar listas (&lt;ul&gt;/&lt;ol&gt;) con más de 3 hermanos o usar hijos inválidos</h3>
+          </header>
+          <p class="case-desc">
+            Siempre que haya <strong>más de 3 elementos hermanos del mismo tipo</strong> (enlaces en un <code>&lt;nav&gt;</code>, tarjetas de productos, categorías, marcas, redes sociales, métodos de pago), es obligatorio agruparlos en una lista <code>&lt;ul&gt;</code> o <code>&lt;ol&gt;</code>. Además, dentro de <code>&lt;ul&gt;</code> solo puede haber <code>&lt;li&gt;</code> (nunca un <code>&lt;a&gt;</code> suelto), y dentro de <code>&lt;dl&gt;</code> solo puede haber <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code> o <code>&lt;div&gt;</code> (nunca <code>&lt;article&gt;</code>).
+          </p>
+
+          <figure class="design-figure">
+            <img src="static/img/caso-3-5-listas-hermanos-aside.png" alt="Maqueta con recuadro 1 en bloque lateral Living in style y recuadro 2 en cuadrícula de 8 categorías de muebles desde Sofas hasta Shelfs" loading="lazy">
+            <figcaption>Recuadros ① y ②: en ①, el banner promocional lateral va en <code>&lt;aside&gt;</code> (no en <code>&lt;article&gt;</code>); en ②, las 8 categorías hermanas superan el límite de 3 elementos y deben ir obligatoriamente dentro de <code>&lt;ul&gt;</code> con 8 <code>&lt;li&gt;</code>.</figcaption>
+          </figure>
+
+          <div class="comparison-grid">
+            <div class="code-box code-bad">
+              <div class="code-box-header">
+                <span>❌ Mal (① &lt;article&gt; lateral y ② 8 categorías sueltas sin &lt;ul&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;article&gt;
+  &lt;div&gt;Made with real wood&lt;/div&gt;
+  &lt;h2&gt;Living in style&lt;/h2&gt;
+  &lt;div&gt;&lt;strong&gt;Sale up to 40% off&lt;/strong&gt;&lt;/div&gt;
+  &lt;a href="#"&gt;Explore Now&lt;/a&gt;
+  &lt;img src="sillon.jpg" alt="Sillón tapizado de madera"&gt;
+&lt;/article&gt;
+
+&lt;section&gt;
+  &lt;h2&gt;Categorías destacadas&lt;/h2&gt;
+  &lt;a href="#"&gt;Sofas&lt;/a&gt;
+  &lt;a href="#"&gt;Chairs&lt;/a&gt;
+  &lt;div&gt;125 Products&lt;/div&gt;
+  &lt;a href="#"&gt;Tables&lt;/a&gt;
+  &lt;a href="#"&gt;TV Boards&lt;/a&gt;
+  &lt;a href="#"&gt;Lamps &amp;amp; Lighting&lt;/a&gt;
+  &lt;a href="#"&gt;Furnishings&lt;/a&gt;
+  &lt;a href="#"&gt;Ottomans&lt;/a&gt;
+  &lt;a href="#"&gt;Shelfs&lt;/a&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+            <div class="code-box code-good">
+              <div class="code-box-header">
+                <span>✅ Bien (① &lt;aside&gt; promocional y ② &lt;ul&gt; con 8 &lt;li&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;aside&gt;
+  &lt;div&gt;Made with real wood&lt;/div&gt;
+  &lt;h2&gt;Living in style&lt;/h2&gt;
+  &lt;div&gt;&lt;strong&gt;Sale up to 40% off&lt;/strong&gt;&lt;/div&gt;
+  &lt;a href="#"&gt;Explore Now&lt;/a&gt;
+  &lt;img src="sillon.jpg" alt="Sillón tapizado de madera"&gt;
+&lt;/aside&gt;
+
+&lt;section&gt;
+  &lt;h2&gt;Categorías destacadas&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Sofas&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Chairs&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;
+      &lt;div&gt;125 Products&lt;/div&gt;
+      &lt;a href="#"&gt;Tables&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;TV Boards&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Lamps &amp;amp; Lighting&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Furnishings&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Ottomans&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Shelfs&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caso 3.6 -->
+        <article id="caso-3-6" class="case-card" data-category="grave" data-keywords="class id div span wrapper br b i style css obsoletas">
+          <header class="case-header">
+            <span class="severity-pill pill-grave">Grave · -0,50 p. / -1,00 p.</span>
+            <h3>3.6. Atributos CSS (class/id), wrappers (&lt;div&gt;/&lt;span&gt;) y etiquetas visuales (&lt;b&gt;, &lt;i&gt;, &lt;br&gt;)</h3>
+          </header>
+          <p class="case-desc">
+            La práctica es exclusivamente de HTML semántico: está prohibido añadir clases CSS (<code>class="tarjeta-producto"</code>), <code>id</code> decorativos en secciones, bloques <code>&lt;style&gt;</code>, código JavaScript, etiquetas visuales (<code>&lt;b&gt;</code>, <code>&lt;i&gt;</code>, <code>&lt;br&gt;</code> para saltos de línea de maquetación) o contenedores <code>&lt;div&gt;</code>/<code>&lt;span&gt;</code> actuando como <em>wrappers</em> visuales (especialmente envolviendo una sola etiqueta interna como <code>&lt;div&gt;&lt;strong&gt;...&lt;/strong&gt;&lt;/div&gt;</code> o un <code>&lt;p&gt;</code> envolviendo cada pareja de formulario).
+          </p>
+
+          <figure class="design-figure">
+            <img src="static/img/caso-3-6-sin-css-wrappers-br.png" alt="Maqueta recuadrada de bloque Contacto completo con Visítanos y dirección postal Calle Mayor 12 46001 Valencia" loading="lazy">
+            <figcaption>Bloque completo recuadrado: el texto visible (<em>Contacto</em>, <em>Visítanos</em>, <em>Dirección:</em>, <em>Calle Mayor 12</em> y <em>46001 Valencia</em>) se estructura solo con etiquetas semánticas y <code>&lt;div&gt;</code> de línea, sin <code>class</code>, wrappers de una sola etiqueta ni <code>&lt;br&gt;</code>.</figcaption>
+          </figure>
+
+          <div class="comparison-grid">
+            <div class="code-box code-bad">
+              <div class="code-box-header">
+                <span>❌ Mal (Clases CSS, wrappers de 1 etiqueta y &lt;br&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;section class="contacto"&gt;
+  &lt;h2 class="titulo"&gt;Contacto&lt;/h2&gt;
+  &lt;div class="wrapper-titulo"&gt;&lt;strong&gt;Visítanos&lt;/strong&gt;&lt;/div&gt;
+  &lt;address&gt;
+    &lt;b&gt;Dirección:&lt;/b&gt; Calle Mayor 12&lt;br&gt;
+    46001 Valencia
+  &lt;/address&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+            <div class="code-box code-good">
+              <div class="code-box-header">
+                <span>✅ Bien (HTML limpio sin clases, wrappers ni &lt;br&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;section&gt;
+  &lt;h2&gt;Contacto&lt;/h2&gt;
+  &lt;strong&gt;Visítanos&lt;/strong&gt;
+  &lt;address&gt;
+    &lt;strong&gt;Dirección:&lt;/strong&gt;
+    &lt;div&gt;Calle Mayor 12&lt;/div&gt;
+    &lt;div&gt;46001 Valencia&lt;/div&gt;
+  &lt;/address&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caso 3.7 -->
+        <article id="caso-3-7" class="case-card" data-category="grave" data-keywords="button a form label for id enlace icono carrito navegacion">
+          <header class="case-header">
+            <span class="severity-pill pill-grave">Grave · -0,50 p. / -1,00 p.</span>
+            <h3>3.7. Confusión entre &lt;a&gt; y &lt;button&gt;, controles fuera de &lt;form&gt; e iconos sin enlace</h3>
+          </header>
+          <p class="case-desc">
+            No te guíes por si el diseño dibuja un rectángulo con aspecto de botón:
+          </p>
+          <ul class="bullet-list">
+            <li>Si navega a otra sección, descarga un documento o abre un catálogo (<em>"Shop Now"</em>, <em>"Download CV"</em>, <em>"All Departments"</em>), es un <strong>enlace <code>&lt;a href="#"&gt;</code></strong>.</li>
+            <li>Todo <strong><code>&lt;button&gt;</code></strong> y todo <strong><code>&lt;label&gt;</code></strong> debe estar obligatoriamente dentro de un <code>&lt;form&gt;</code> (nunca uses <code>&lt;label&gt;</code> para barras de habilidades ni <code>&lt;button&gt;</code> en un <code>&lt;nav&gt;</code>).</li>
+            <li>Cada <code>&lt;label for="id-campo"&gt;</code> debe llevar texto descriptivo (aunque visualmente se oculte luego con CSS) y coincidir exactamente en mayúsculas/minúsculas con el <code>id</code> del control (no con <code>name</code>).</li>
+            <li>Los iconos interactivos (usuario, favoritos, carrito, redes sociales) no pueden quedar como simples <code>&lt;img&gt;</code> inertes: deben ir dentro de un enlace <code>&lt;a href="#"&gt;</code>.</li>
+          </ul>
+
+          <figure class="design-figure">
+            <img src="static/img/caso-3-7-enlaces-botones-form.png" alt="Maqueta recuadrada en 3 zonas: 1 navegación con All Departments, Inicio, Catálogo y Contacto; 2 icono de carrito con contador 2; 3 formulario de correo electrónico con Subscribe" loading="lazy">
+            <figcaption>Recuadros ①–③: ① menú superior de 4 enlaces (<code>&lt;nav&gt;&lt;ul&gt;</code> con <code>&lt;a&gt;</code>, nunca <code>&lt;button&gt;</code>); ② icono interactivo de carrito envuelto en <code>&lt;a&gt;</code>; ③ bloque inferior completo dentro de <code>&lt;form&gt;</code> con <code>&lt;label for&gt;</code> visible, <code>&lt;input id&gt;</code> coincidente y <code>&lt;button type="submit"&gt;</code>.</figcaption>
+          </figure>
+
+          <div class="comparison-grid">
+            <div class="code-box code-bad">
+              <div class="code-box-header">
+                <span>❌ Mal (① &lt;button&gt; en nav sin &lt;ul&gt;, ② icono inerte, ③ &lt;label&gt; vacío)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;nav&gt;
+  &lt;button type="button"&gt;All Departments&lt;/button&gt;
+  &lt;a href="#"&gt;Inicio&lt;/a&gt;
+  &lt;a href="#"&gt;Catálogo&lt;/a&gt;
+  &lt;a href="#"&gt;Contacto&lt;/a&gt;
+&lt;/nav&gt;
+&lt;img src="carrito.png" alt="Carrito de compra"&gt;
+&lt;div&gt;2&lt;/div&gt;
+
+&lt;form&gt;
+  &lt;label for="email"&gt;&lt;/label&gt;
+  &lt;div&gt;Recibe novedades y descuentos semanales&lt;/div&gt;
+  &lt;input type="Email" name="email" placeholder="Tu email"&gt;
+  &lt;button type="submit"&gt;Subscribe&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+            <div class="code-box code-good">
+              <div class="code-box-header">
+                <span>✅ Bien (① &lt;nav&gt;&lt;ul&gt;, ② icono en &lt;a&gt; y ③ &lt;label&gt; + &lt;input&gt; vinculados)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;All Departments&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Catálogo&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;a href="#"&gt;&lt;img src="carrito.png" alt="Carrito de compra"&gt; &lt;strong&gt;2&lt;/strong&gt;&lt;/a&gt;
+
+&lt;form&gt;
+  &lt;label for="newsletter-email"&gt;Correo electrónico&lt;/label&gt;
+  &lt;div&gt;Recibe novedades y descuentos semanales&lt;/div&gt;
+  &lt;input type="email" id="newsletter-email" name="email" placeholder="Tu email"&gt;
+  &lt;button type="submit"&gt;Subscribe&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caso 3.8 -->
+        <article id="caso-3-8" class="case-card" data-category="grave" data-keywords="img imagen fondo decorativa recorte boton texto logo">
+          <header class="case-header">
+            <span class="severity-pill pill-grave">Grave · -0,50 p.</span>
+            <h3>3.8. Errores con &lt;img&gt;: fondos decorativos, botones recortados y omisión de fotos reales</h3>
+          </header>
+          <p class="case-desc">
+            Las imágenes de fondo de las secciones (<em>hero-background.jpg</em>) pertenecen al CSS y no deben ponerse en el HTML. A la inversa, los textos reales y enlaces del diseño (<em>"Shop Now"</em>, sellos como <em>"19+ Years"</em>, etiquetas <em>"NEW"</em>) deben escribirse como texto HTML, jamás como capturas de imagen. Por último, las fotografías de productos o noticias sí son contenido real y no deben omitirse, y las filas de logotipos independientes deben ser múltiples <code>&lt;img&gt;</code> dentro de una lista <code>&lt;ul&gt;</code> (no una sola imagen unida).
+          </p>
+
+          <figure class="design-figure">
+            <img src="static/img/caso-3-8-imagenes-fondos-textos.png" alt="Maqueta Clean and Laundry Services separando el fondo decorativo de ondas CSS del contenido HTML real con 19+ Years, Shop Now y foto de lavadora" loading="lazy">
+            <figcaption>Recuadro discontinuo exterior: las ondas y burbujas del fondo van en CSS (nunca en <code>&lt;img&gt;</code>). Recuadro verde interior: contenido HTML real con título <code>&lt;h2&gt;</code>, sello <em>19+ Years</em> y enlace <em>Shop Now</em> como texto real, más la fotografía del producto en <code>&lt;img&gt;</code>.</figcaption>
+          </figure>
+
+          <div class="comparison-grid">
+            <div class="code-box code-bad">
+              <div class="code-box-header">
+                <span>❌ Mal (Fondo en HTML y sello/botón recortados como &lt;img&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;section&gt;
+  &lt;img src="fondo-ondas-burbujas.jpg" alt="Fondo decorativo"&gt;
+  &lt;h2&gt;Clean &amp;amp; Laundry Services&lt;/h2&gt;
+  &lt;img src="sello-19-years.png" alt="19+ Years"&gt;
+  &lt;a href="#"&gt;&lt;img src="boton-shop-now.png" alt="Shop Now"&gt;&lt;/a&gt;
+  &lt;img src="lavadora.png" alt="Lavadora de carga frontal"&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+            <div class="code-box code-good">
+              <div class="code-box-header">
+                <span>✅ Bien (Texto real + foto de producto; el fondo va en CSS)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;section&gt;
+  &lt;h2&gt;Clean &amp;amp; Laundry Services&lt;/h2&gt;
+  &lt;strong&gt;19+ Years&lt;/strong&gt;
+  &lt;a href="#"&gt;Shop Now&lt;/a&gt;
+  &lt;img src="lavadora.png" alt="Lavadora de carga frontal"&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- SECCIÓN 4: ERRORES LEVES -->
+      <section id="leves" tabindex="-1" class="guide-section" data-category="leve">
+        <div class="section-header">
+          <span class="section-tag tag-leve">Errores Leves (-0,25 p. / -0,50 p. si &ge; 5)</span>
+          <h2>4. Errores Leves: Precisión Semántica y Limpieza</h2>
+        </div>
+
+        <!-- Caso 4.1 -->
+        <article id="caso-4-1" class="case-card case-highlight" data-category="leve" data-keywords="p div parrafo linea aislada precio subtitulo cta">
+          <header class="case-header">
+            <span class="severity-pill pill-leve">Leve (El fallo más repetido)</span>
+            <h3>4.1. Uso indebido y sistemático de &lt;p&gt; en lugar de &lt;div&gt; para líneas aisladas</h3>
+          </header>
+          <p class="case-desc">
+            Ha sido, con diferencia, el error más extendido en todas las prácticas. La etiqueta <code>&lt;p&gt;</code> representa un <strong>párrafo dentro de un cuerpo de texto extenso</strong> (como el resumen de una noticia del blog o una biografía). Para antetítulos cortos, categorías, estrellas de valoración, precios, fechas, enlaces de llamada a la acción (<em>"Shop Now"</em>), líneas de dirección postal o avisos de copyright sueltos, <strong>debes usar <code>&lt;div&gt;</code></strong> (o texto plano/inline). Además, nunca partas una única frase visual en varios <code>&lt;p&gt;</code> consecutivos.
+          </p>
+
+          <figure class="design-figure">
+            <img src="static/img/caso-4-1-p-vs-div-ficha.png" alt="Comparativa recuadrada: 1 Tarjeta A con líneas aisladas de Fleece Hoodie para div, y 2 Tarjeta B con párrafo continuo para p" loading="lazy">
+            <figcaption>Recuadros ① y ②: en ① (<em>Tarjeta A</em>), las líneas cortas e independientes (<em>Running</em>, <code>$40.00</code>, valoración) van en <code>&lt;div&gt;</code>; en ② (<em>Tarjeta B</em>), el texto redactado en prosa continua tras la fecha sí debe ir en <code>&lt;p&gt;</code>.</figcaption>
+          </figure>
+
+          <div class="comparison-grid">
+            <div class="code-box code-bad">
+              <div class="code-box-header">
+                <span>❌ Mal (① &lt;p&gt; en datos cortos y ② &lt;div&gt; en prosa continua)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;!-- Tarjeta A ①: abusa de &lt;p&gt; en líneas sueltas --&gt;
+&lt;article&gt;
+  &lt;img src="camisa.jpg" alt="Camisa"&gt;
+  &lt;p&gt;★★★★☆&lt;/p&gt;
+  &lt;p&gt;Running&lt;/p&gt;
+  &lt;h3&gt;Fleece Hoodie&lt;/h3&gt;
+  &lt;p&gt;$40.00&lt;/p&gt;
+  &lt;p&gt;&lt;a href="#"&gt;View Product&lt;/a&gt;&lt;/p&gt;
+&lt;/article&gt;
+
+&lt;!-- Tarjeta B ②: usa &lt;div&gt; en un párrafo real --&gt;
+&lt;article&gt;
+  &lt;h3&gt;Cómo elegir tejido técnico&lt;/h3&gt;
+  &lt;div&gt;15 Oct, 2026&lt;/div&gt;
+  &lt;div&gt;Cuando una ficha incluye varias frases formando un discurso continuo, debes usar la etiqueta de párrafo.&lt;/div&gt;
+&lt;/article&gt;</code></pre>
+            </div>
+            <div class="code-box code-good">
+              <div class="code-box-header">
+                <span>✅ Bien (① &lt;div&gt; en datos aislados y ② &lt;p&gt; solo en prosa)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;!-- Tarjeta A ①: datos breves en &lt;div&gt; --&gt;
+&lt;article&gt;
+  &lt;img src="camisa.jpg" alt="Camisa"&gt;
+  &lt;div&gt;Valoración: 4 de 5 estrellas&lt;/div&gt;
+  &lt;div&gt;Running&lt;/div&gt;
+  &lt;h3&gt;Fleece Hoodie&lt;/h3&gt;
+  &lt;div&gt;$40.00&lt;/div&gt;
+  &lt;a href="#"&gt;View Product&lt;/a&gt;
+&lt;/article&gt;
+
+&lt;!-- Tarjeta B ②: discurso continuo en &lt;p&gt; --&gt;
+&lt;article&gt;
+  &lt;h3&gt;Cómo elegir tejido técnico&lt;/h3&gt;
+  &lt;time datetime="2026-10-15"&gt;15 Oct, 2026&lt;/time&gt;
+  &lt;p&gt;Cuando una ficha incluye varias frases formando un discurso continuo, debes usar la etiqueta de párrafo.&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caso 4.2 -->
+        <article id="caso-4-2" class="case-card" data-category="leve" data-keywords="address time datetime blockquote cite del ins mark abbr aside details summary small">
+          <header class="case-header">
+            <span class="severity-pill pill-leve">Leve · -0,25 p.</span>
+            <h3>4.2. Omisión de etiquetas semánticas específicas (&lt;address&gt;, &lt;time&gt;, &lt;cite&gt;, &lt;details&gt;, &lt;small&gt;, &lt;aside&gt;)</h3>
+          </header>
+          <p class="case-desc">
+            HTML5 proporciona etiquetas concretas que muchos alumnos dejaron en texto plano o sustituyeron por <code>&lt;div&gt;</code>/<code>&lt;p&gt;</code>/<code>&lt;figure&gt;</code>:
+          </p>
+          <ul class="bullet-list">
+            <li><strong>Citas y testimonios (①):</strong> usa <code>&lt;article&gt;</code> con <code>&lt;blockquote&gt;</code> para la reseña y <code>&lt;cite&gt;</code> para identificar al autor (nunca uses <code>&lt;figure&gt;</code> en un testimonio textual).</li>
+            <li><strong>Preguntas frecuentes desplegables (②):</strong> usa <code>&lt;details&gt;</code> y <code>&lt;summary&gt;</code> (con atributo <code>open</code> si el diseño la muestra abierta).</li>
+            <li><strong>Datos de contacto (③):</strong> usa <code>&lt;address&gt;</code> con enlaces <code>mailto:</code> y <code>tel:</code>.</li>
+            <li><strong>Avisos legales y copyright (④):</strong> usa <code>&lt;small&gt;</code> para textos legales en el pie de página.</li>
+            <li><strong>Fechas, rebajas y complementos:</strong> usa <code>&lt;time datetime="2019-06-28"&gt;28 Jun, 2019&lt;/time&gt;</code>, <code>&lt;del&gt;$350.00&lt;/del&gt; &lt;ins&gt;$40.00&lt;/ins&gt;</code> (visto en 2.1) y <code>&lt;aside&gt;</code> para banners laterales (visto en 3.5).</li>
+          </ul>
+
+          <figure class="design-figure">
+            <img src="static/img/caso-4-2a-testimonios-faq.png" alt="Maqueta recuadrada con 1 testimonio de Vincent Smith y 2 bloque FAQ desplegable abierta" loading="lazy">
+            <figcaption>Recuadros ① y ②: en ①, tarjeta de testimonio con <code>&lt;article&gt;</code>, <code>&lt;cite&gt;</code> y <code>&lt;blockquote&gt;</code>; en ②, pregunta frecuente abierta modelada de forma nativa con <code>&lt;details open&gt;</code> y <code>&lt;summary&gt;</code>.</figcaption>
+          </figure>
+
+          <figure class="design-figure">
+            <img src="static/img/caso-4-2b-footer-completo.png" alt="Maqueta recuadrada de pie de página con 3 bloque Contact Us y 4 copyright ekommart" loading="lazy">
+            <figcaption>Recuadros ③ y ④ en <code>&lt;footer&gt;</code>: ③ bloque <em>Contact Us</em> con <code>&lt;address&gt;</code> y enlaces <code>mailto:</code>/<code>tel:</code>; ④ franja de derechos de autor marcada con <code>&lt;small&gt;</code>. Las columnas superiores siguen el patrón <code>&lt;nav&gt;&lt;h2&gt;Título&lt;/h2&gt;&lt;ul&gt;</code> visto en 3.3.</figcaption>
+          </figure>
+
+          <div class="comparison-grid">
+            <div class="code-box code-bad">
+              <div class="code-box-header">
+                <span>❌ Mal (① &lt;figure&gt; en cita, ② &lt;div&gt; en FAQ, ③–④ texto plano)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;!-- Recuadro ①: Testimonio con &lt;figure&gt; --&gt;
+&lt;figure&gt;
+  &lt;figcaption&gt;Vincent Smith&lt;/figcaption&gt;
+  &lt;div&gt;★★★★★&lt;/div&gt;
+  &lt;blockquote&gt;Gran servicio profesional desde el primer plano hasta la entrega final de obra.&lt;/blockquote&gt;
+&lt;/figure&gt;
+
+&lt;!-- Recuadro ②: FAQ sin &lt;details&gt;/&lt;summary&gt; --&gt;
+&lt;div&gt;
+  &lt;h3&gt;How do you determine the end cost of the project?&lt;/h3&gt;
+  &lt;p&gt;First we work with every customer to clearly define the project and build a detailed estimate.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Recuadros ③ y ④: Sin &lt;address&gt;, &lt;a&gt; ni &lt;small&gt; --&gt;
+&lt;section&gt;
+  &lt;h2&gt;Contact Us&lt;/h2&gt;
+  &lt;div&gt;If you have any question, please contact us at support@example.com&lt;/div&gt;
+  &lt;div&gt;123 Sky Tower, West 21th Street, Suite, NY&lt;/div&gt;
+  &lt;div&gt;+844 123 456 789&lt;/div&gt;
+&lt;/section&gt;
+&lt;div&gt;Copyright © 2026 ekommart. All Rights Reserved.&lt;/div&gt;</code></pre>
+            </div>
+            <div class="code-box code-good">
+              <div class="code-box-header">
+                <span>✅ Bien (① &lt;cite&gt;, ② &lt;details&gt;, ③ &lt;address&gt; y ④ &lt;small&gt;)</span>
+                <button type="button" class="copy-btn">Copiar</button>
+              </div>
+              <pre><code>&lt;!-- Recuadro ①: Testimonio semántico --&gt;
+&lt;article&gt;
+  &lt;h3&gt;Reseña de &lt;cite&gt;Vincent Smith&lt;/cite&gt;&lt;/h3&gt;
+  &lt;div&gt;Valoración: 5 de 5 estrellas&lt;/div&gt;
+  &lt;blockquote&gt;Gran servicio profesional desde el primer plano hasta la entrega final de obra.&lt;/blockquote&gt;
+&lt;/article&gt;
+
+&lt;!-- Recuadro ②: FAQ nativa desplegable --&gt;
+&lt;details open&gt;
+  &lt;summary&gt;How do you determine the end cost of the project?&lt;/summary&gt;
+  &lt;p&gt;First we work with every customer to clearly define the project and build a detailed estimate.&lt;/p&gt;
+&lt;/details&gt;
+
+&lt;!-- Recuadros ③ y ④: Contacto y copyright --&gt;
+&lt;section&gt;
+  &lt;h2&gt;Contact Us&lt;/h2&gt;
+  &lt;address&gt;
+    &lt;div&gt;If you have any question, please contact us at &lt;a href="mailto:support@example.com"&gt;support@example.com&lt;/a&gt;&lt;/div&gt;
+    &lt;div&gt;123 Sky Tower, West 21th Street, Suite, NY&lt;/div&gt;
+    &lt;a href="tel:+844123456789"&gt;+844 123 456 789&lt;/a&gt;
+  &lt;/address&gt;
+&lt;/section&gt;
+&lt;section&gt;
+  &lt;h2&gt;Información legal&lt;/h2&gt;
+  &lt;small&gt;Copyright &amp;copy; 2026 ekommart. All Rights Reserved.&lt;/small&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caso 4.3 -->
+        <article id="caso-4-3" class="case-card" data-category="leve" data-keywords="indentacion formato saltos de linea blancos legibilidad">
+          <header class="case-header">
+            <span class="severity-pill pill-leve">Leve · -0,25 p.</span>
+            <h3>4.3. Indentación inconsistente y exceso de líneas en blanco</h3>
+          </header>
+          <p class="case-desc">
+            Mezclar sangrados de 2 y 4 espacios, dejar los elementos <code>&lt;li&gt;</code> al mismo nivel que su <code>&lt;ul&gt;</code> o introducir líneas en blanco entre cada etiqueta dificulta la lectura de la jerarquía del árbol DOM. Usa un formateador automático (como Prettier o el formateador de tu IDE) antes de entregar.
+          </p>
+        </article>
+      </section>
+
+      <!-- SECCIÓN 5: OBSERVACIONES SIN PENALIZACIÓN -->
+      <section id="observaciones" tabindex="-1" class="guide-section" data-category="observacion">
+        <div class="section-header">
+          <span class="section-tag tag-observacion">Observaciones Formativas (Sin Penalización)</span>
+          <h2>5. Resumen de Observaciones y Recomendaciones</h2>
+        </div>
+        <p>
+          Estos puntos aparecieron con frecuencia en las entregas. Aunque en esta práctica de la UD1 no han restado nota, debes tenerlos muy presentes para las próximas unidades:
+        </p>
+
+        <div class="obs-grid">
+          <article class="obs-card" data-category="observacion" data-keywords="aria-label aria-labelledby wai-aria accesibilidad">
+            <h3>1. Uso prematuro o erróneo de WAI-ARIA</h3>
+            <p>Aún no hemos impartido accesibilidad WAI-ARIA en el curso. Además, recuerda dos reglas clave: <strong>no pongas <code>aria-label</code> ni <code>aria-labelledby</code> cuando la <code>&lt;section&gt;</code> ya tiene su propio <code>&lt;hx&gt;</code></strong> (el encabezado ya le da nombre accesible), y jamás pongas un texto distinto en <code>aria-label</code> a modo de comentario porque sobreescribe el título real para los lectores de pantalla.</p>
+          </article>
+
+          <article class="obs-card" data-category="observacion" data-keywords="figure figcaption imagen simple">
+            <h3>2. Abuso de &lt;figure&gt; sin &lt;figcaption&gt;</h3>
+            <p>No es necesario envolver todas las fotografías de productos, avatares o banners dentro de <code>&lt;figure&gt;</code> si no llevan un pie de ilustración descriptivo (<code>&lt;figcaption&gt;</code>). Para imágenes normales basta con usar directamente <code>&lt;img src="..." alt="..."&gt;</code>.</p>
+          </article>
+
+          <article class="obs-card" data-category="observacion" data-keywords="footer nav section columnas navegacion">
+            <h3>3. Columnas de navegación en el &lt;footer&gt;</h3>
+            <p>Dado que <code>&lt;nav&gt;</code> ya es en sí mismo un elemento de seccionamiento, cada columna de enlaces del pie debe estructurarse directamente como <code>&lt;nav&gt;&lt;h2&gt;...&lt;/h2&gt;&lt;ul&gt;...&lt;/ul&gt;&lt;/nav&gt;</code> (o <code>&lt;section&gt;&lt;h2&gt;...&lt;/h2&gt;&lt;nav&gt;&lt;ul&gt;...&lt;/ul&gt;&lt;/nav&gt;&lt;/section&gt;</code>). Evita crear un único <code>&lt;nav&gt;</code> contenedor gigante sin encabezado que envuelva varias <code>&lt;section&gt;</code> internas.</p>
+          </article>
+
+          <article class="obs-card" data-category="observacion" data-keywords="carrusel slider flechas puntos button">
+            <h3>4. Controles de carruseles y elementos sin JS</h3>
+            <p>En una práctica puramente de HTML semántico (sin JavaScript), debes <strong>ignorar y omitir las flechas (<code>&lt;</code> <code>&gt;</code>) o los puntos indicadores de los carruseles</strong>. Tampoco añadas elementos <code>&lt;span&gt;&lt;/span&gt;</code> vacíos ni botones sueltos para esos sliders.</p>
+          </article>
+
+          <article class="obs-card" data-category="observacion" data-keywords="pagos visa paypal mastercard img a">
+            <h3>5. Métodos de pago e iconos informativos</h3>
+            <p>Los logotipos de tarjetas aceptadas al final del pie de página (Visa, Mastercard, PayPal...) son puramente informativos: se agrupan en una lista <code>&lt;ul&gt;&lt;li&gt;&lt;img ...&gt;&lt;/li&gt;&lt;/ul&gt;</code>, pero <strong>no deben llevar enlaces <code>&lt;a&gt;</code></strong> si en el diseño no son interactivos.</p>
+          </article>
+
+          <article class="obs-card" data-category="observacion" data-keywords="fidelidad diseno footer completo recortes">
+            <h3>6. Alcance, fidelidad al diseño y márgenes</h3>
+            <p>Elige diseños completos que incluyan varias secciones variadas y <strong>un <code>&lt;footer&gt;</code> en condiciones</strong>, respeta el orden y los textos reales del diseño (sin inventar bloques ni omitir partes de tarjetas) y no recortes los márgenes laterales originales de la captura.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 6: PUNTOS FUERTES -->
+      <section id="puntos-fuertes" tabindex="-1" class="guide-section" data-category="fuerte">
+        <div class="section-header">
+          <span class="section-tag tag-fuerte">Puntos Fuertes Destacados</span>
+          <h2>6. Buenas Prácticas Observadas en las Entregas</h2>
+        </div>
+        <p>
+          Muchas entregas han demostrado un dominio excelente del estándar HTML5. Estos son los patrones que conviene tomar como referencia:
+        </p>
+
+        <div class="strengths-grid">
+          <article class="strength-card" data-category="fuerte" data-keywords="search fieldset legend details summary dl dt dd progress">
+            <h3>Uso avanzado de etiquetas semánticas HTML5</h3>
+            <ul>
+              <li><strong><code>&lt;search&gt;</code></strong> envolviendo el formulario del buscador principal en la cabecera.</li>
+              <li><strong><code>&lt;fieldset&gt;</code> y <code>&lt;legend&gt;</code></strong> para agrupar campos en formularios de búsqueda complejos.</li>
+              <li><strong><code>&lt;details&gt;</code> y <code>&lt;summary&gt;</code></strong> (incluyendo el atributo <code>open</code>) en bloques de preguntas frecuentes (FAQs).</li>
+              <li><strong><code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code> y <code>&lt;dd&gt;</code></strong> para pares clave/valor, datos de perfil y cuentas atrás.</li>
+              <li><strong><code>&lt;progress&gt;</code></strong> para representar barras de nivel o progreso semánticamente.</li>
+            </ul>
+          </article>
+
+          <article class="strength-card" data-category="fuerte" data-keywords="del ins mark time abbr small footer header article">
+            <h3>Precisión en metadatos y texto en línea</h3>
+            <ul>
+              <li><strong><code>&lt;del&gt;</code> e <code>&lt;ins&gt;</code></strong> para distinguir el precio anterior tachado del precio rebajado actual.</li>
+              <li><strong><code>&lt;mark&gt;</code></strong> para destacar etiquetas de estado o palabras clave relevantes en títulos.</li>
+              <li><strong><code>&lt;time datetime="..."&gt;</code></strong> con fechas normalizadas ISO y <strong><code>&lt;abbr title="..."&gt;</code></strong> en siglas.</li>
+              <li><strong><code>&lt;small&gt;</code></strong> en avisos de copyright y notas legales del pie de página.</li>
+              <li><strong><code>&lt;header&gt;</code> y <code>&lt;footer&gt;</code> internos</strong> dentro de artículos de blog para agrupar fecha/autor o categoría.</li>
+            </ul>
+          </article>
+
+          <article class="strength-card" data-category="fuerte" data-keywords="form label input type email date tel mailto limpieza">
+            <h3>Formularios accesibles y código limpio</h3>
+            <ul>
+              <li>Emparejamiento riguroso de <code>&lt;label for="..."&gt;</code> con el <code>id</code> del campo y uso de tipos específicos (<code>type="search"</code>, <code>type="email"</code>, <code>type="date"</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code>).</li>
+              <li>Enlaces funcionales de contacto con <code>href="mailto:..."</code> y <code>href="tel:..."</code> dentro de <code>&lt;address&gt;</code>.</li>
+              <li>Maquetación 100% libre de CSS, scripts y atributos de presentación, con títulos descriptivos añadidos en secciones que visualmente no mostraban encabezado.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>DIW · CFGS Desarrollo de Aplicaciones Web (DAW) · Guía de refuerzo basada en la práctica E1.3 (HTML5 Semántico)</p>
+  </footer>
+</body>
+</html>
