@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Aclaración del Footer (Katora.) — E1.3 HTML5 Semántico</title>
+  <link rel="stylesheet" href="static/css/styles.css">
+  <script defer src="static/js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="badge-row">
+        <span class="badge badge-info">DIW · CFGS DAW · UD1</span>
+        <span class="badge badge-leve">Aclaración: &lt;footer&gt; vs &lt;main&gt;</span>
+      </div>
+      <h1>¿Qué pasa exactamente con el <code>&lt;footer&gt;</code> de tu práctica (Katora.)?</h1>
+      <p class="header-lead">
+        En tu informe tienes dos anotaciones relacionadas con el final de tu archivo: una <strong>observación para la parte de CSS</strong> (no tienes un pie de página real) y una <strong>falta leve (-0,25 p.)</strong> en las líneas 134–154. Aquí tienes explicado paso a paso qué ocurre en tu código y cómo se corrige <strong>en tres fases progresivas</strong> apoyándonos en el diseño completo de la plantilla.
+      </p>
+      <div class="header-actions">
+        <button type="button" class="btn-secondary" id="mobile-toc-btn" aria-expanded="false" aria-controls="indice-lateral">
+          Índice de apartados
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-layout">
+    <aside class="sidebar" id="indice-lateral" aria-label="Navegación y ajustes de la guía">
+      <div class="theme-switcher" role="group" aria-label="Selector de tema visual">
+        <button type="button" data-theme-choice="system" aria-pressed="true">Sistema</button>
+        <button type="button" data-theme-choice="light" aria-pressed="false">Claro</button>
+        <button type="button" data-theme-choice="dark" aria-pressed="false">Oscuro</button>
+      </div>
+
+      <h2 class="toc-heading">Contenido</h2>
+      <nav class="toc-nav" aria-label="Apartados de la aclaración">
+        <ul>
+          <li><a href="#resumen-diagnostico">1. Visión general y esquema erróneo</a></li>
+          <li><a href="#entrega-actual">2. Tu entrega actual (l. 132–156)</a></li>
+          <li><a href="#fase-1-simple">3. Fase 1: Footer simple (copyright)</a></li>
+          <li><a href="#fase-2-footer-real">4. Fase 2: Añadir el footer real</a></li>
+          <li><a href="#fase-3-ampliacion">5. Fase 3: Ampliar con Special Offers</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-note">
+        <strong>Orden de las fases:</strong><br>
+        <strong>1.ª</strong> Corregir con un <code>&lt;footer&gt;</code> simple.<br>
+        <strong>2.ª</strong> Sustituirlo por el <code>&lt;footer&gt;</code> real.<br>
+        <strong>3.ª</strong> Ampliar <code>&lt;main&gt;</code> con <em>Special Offers</em>.
+      </div>
+    </aside>
+
+    <main class="content-column" id="contenido-principal">
+      <!-- PUNTO 1: VISIÓN GENERAL -->
+      <section class="guide-section" id="resumen-diagnostico">
+        <span class="section-kicker kicker-blue">1 · Visión general</span>
+        <h2>Los dos problemas que ocurren al final de tu código</h2>
+        <p class="section-intro">
+          Si miramos de forma esquemática lo que pusiste en las últimas líneas de tu entrega, se ve enseguida por qué hay dos comentarios distintos sobre ese mismo fragmento:
+        </p>
+
+        <div class="code-box code-box-bad">
+          <div class="code-box-header">
+            <span id="code-sketch-label">Esquema de tu código actual (por qué está mal)</span>
+            <button type="button" class="copy-btn">Copiar</button>
+          </div>
+          <pre role="region" aria-labelledby="code-sketch-label" tabindex="0"><code>    &lt;!-- ... resto de &lt;main&gt; ... --&gt;
+    &lt;/main&gt;  &lt;!-- ❌ Error A (Observación): cierras &lt;main&gt; antes de tiempo --&gt;
+
+    &lt;footer&gt; &lt;!-- ❌ Estas 3 tarjetas NO son un footer, son parte de &lt;main&gt; --&gt;
+        &lt;section&gt; &lt;!-- ❌ Error B (Leve -0,25 p.): 1 sola &lt;section&gt; dentro de &lt;footer&gt; --&gt;
+            &lt;h2&gt;seciones que te pueden interesar&lt;/h2&gt;
+            &lt;article&gt;... Game Accessories + &lt;img&gt; Shop Now ...&lt;/article&gt;
+            &lt;article&gt;... Multimedia Devices + &lt;img&gt; Shop Now ...&lt;/article&gt;
+            &lt;article&gt;... Computers Accessories + &lt;img&gt; Shop Now ...&lt;/article&gt;
+        &lt;/section&gt;
+    &lt;/footer&gt;</code></pre>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1.15rem;">
+          <article class="summary-card card-obs">
+            <span class="badge badge-info">A · Observación (0,00 p., para CSS)</span>
+            <h3>En realidad NO tienes <code>&lt;footer&gt;</code></h3>
+            <p>
+              La captura que entregaste se corta antes de llegar al pie real de la web. Cogiste una sección normal de categorías promocionales (<em>Game Accessories</em>, <em>Multimedia Devices</em>, <em>Computers Accessories</em>) y la metiste dentro de <code>&lt;footer&gt;</code> solo porque estaba abajo en la imagen. Esa sección pertenece al <code>&lt;main&gt;</code>; para CSS necesitas añadir un <code>&lt;footer&gt;</code> de verdad y acordar conmigo alguna sección más para completar la página.
+            </p>
+          </article>
+
+          <article class="summary-card card-leve">
+            <span class="badge badge-leve">B · Falta Leve (-0,25 p., l. 134–154)</span>
+            <h3>Un <code>&lt;footer&gt;</code> con 1 única <code>&lt;section&gt;</code> dentro</h3>
+            <p>
+              Independientemente de qué contenido hubiera ahí, metiste una <strong>única etiqueta <code>&lt;section&gt;</code> hija</strong> dentro de <code>&lt;footer&gt;</code>. En HTML5 nunca se usa <code>&lt;footer&gt;</code> como envoltorio de una sola <code>&lt;section&gt;</code>, porque ese bloque único ya es el propio <code>&lt;footer&gt;</code>. Solo se subdivide en <code>&lt;section&gt;</code> o <code>&lt;nav&gt;</code> cuando el pie tiene <strong>varios bloques hermanos distintos</strong>.
+            </p>
+          </article>
+        </div>
+
+        <div class="callout callout-warn">
+          <strong>Recordatorio de la Falta Grave en esas tarjetas (l. 141, 146, 151):</strong> los botones <em>«Shop Now»</em> no deben ir como imágenes (<code>&lt;img src="katorapepecap/shop now .png"&gt;</code>), sino como enlaces de texto HTML: <code>&lt;a href="#"&gt;Shop Now&lt;/a&gt;</code>.
+        </div>
+      </section>
+
+      <!-- PUNTO 2: ENTREGA ACTUAL -->
+      <section class="guide-section" id="entrega-actual">
+        <span class="section-kicker kicker-amber">2 · Diagnóstico completo</span>
+        <h2>Tu imagen y tu código entregado (líneas 132–156)</h2>
+        <p class="section-intro">
+          Aquí puedes ver dónde acaba exactamente la imagen que utilizaste y compararlo línea a línea con tu HTML completo de ese bloque.
+        </p>
+
+        <figure class="design-figure">
+          <img
+            src="static/img/katora-entrega-actual.png"
+            alt="Diagnóstico visual de la entrega actual de Katora mostrando la captura recortada antes del footer real y el zoom de las 3 tarjetas inferiores envueltas en un footer"
+            width="1920"
+            height="1245"
+            fetchpriority="high"
+          >
+          <figcaption>
+            A la izquierda, tu captura completa termina en las 3 tarjetas inferiores de categorías (sin pie de página debajo). A la derecha, el detalle de las líneas 134–154 muestra el bloque metido erróneamente como único hijo <code>&lt;section&gt;</code> de un <code>&lt;footer&gt;</code>.
+          </figcaption>
+        </figure>
+
+        <div class="code-box code-box-bad">
+          <div class="code-box-header">
+            <span id="code-original-label">Tu código literal entregado (líneas 132–156)</span>
+            <button type="button" class="copy-btn">Copiar</button>
+          </div>
+          <pre role="region" aria-labelledby="code-original-label" tabindex="0"><code>    &lt;/main&gt; &lt;!-- l. 132: cierra &lt;main&gt; demasiado pronto --&gt;
+
+    &lt;footer&gt; &lt;!-- l. 134: en realidad no es un pie de página --&gt;
+        &lt;section&gt; &lt;!-- l. 135 (Leve -0,25 p.): único hijo de &lt;footer&gt; --&gt;
+            &lt;h2&gt;seciones que te pueden interesar&lt;/h2&gt;
+
+            &lt;article&gt;
+                &lt;img src="katorapepecap/mandoyplay.png" alt="imagen de game accesories"&gt;
+                &lt;h3&gt;Game Accessories &lt;/h3&gt;
+                &lt;img src="katorapepecap/shop now .png" alt="imagen show now"&gt;
+            &lt;/article&gt;
+            &lt;article&gt;
+                &lt;img src="katorapepecap/webcam.png" alt="imagen de Multimedia Devices"&gt;
+                &lt;h3&gt;Multimedia Devices &lt;/h3&gt;
+                &lt;img src="katorapepecap/shop now .png" alt="imagen show now"&gt;
+            &lt;/article&gt;
+            &lt;article&gt;
+                &lt;img src="katorapepecap/monitor.png" alt="imagen de Computers Accessories "&gt;
+                &lt;h3&gt;Computers Accessories &lt;/h3&gt;
+                &lt;img src="katorapepecap/shop now .png" alt="imagen show now"&gt;
+            &lt;/article&gt;
+        &lt;/section&gt;
+    &lt;/footer&gt;
+
+&lt;/body&gt;</code></pre>
+        </div>
+
+        <ul class="line-notes">
+          <li>
+            <span class="line-tag tag-obs">Línea 132</span>
+            Cierras <code>&lt;/main&gt;</code> dejando fuera una sección que sigue siendo promoción de categorías de la tienda.
+          </li>
+          <li>
+            <span class="line-tag tag-leve">Líneas 134–135 y 153–154</span>
+            <code>&lt;footer&gt;</code> envuelve únicamente una etiqueta <code>&lt;section&gt;</code>. Si un pie tuviera una única agrupación, sobraría esa <code>&lt;section&gt;</code> interna.
+          </li>
+          <li>
+            <span class="line-tag tag-grave">Líneas 141, 146 y 151</span>
+            Cada <em>«Shop Now»</em> usa <code>&lt;img&gt;</code> en lugar de un enlace HTML <code>&lt;a href="#"&gt;Shop Now&lt;/a&gt;</code>.
+          </li>
+        </ul>
+      </section>
+
+      <!-- PUNTO 3: FASE 1 -->
+      <section class="guide-section" id="fase-1-simple">
+        <span class="section-kicker kicker-green">3 · Fase 1 de corrección</span>
+        <h2>Fase 1: Mover la sección al <code>&lt;main&gt;</code> y crear un <code>&lt;footer&gt;</code> ficticio simple</h2>
+        <p class="section-intro">
+          Empecemos por lo básico sin cambiar aún el diseño: pasamos tu sección de las 3 categorías <strong>dentro de <code>&lt;main&gt;</code></strong> (corrigiendo los enlaces <em>Shop Now</em>) y ponemos debajo un <strong><code>&lt;footer&gt;</code> ficticio mínimo que solo contenga el copyright</strong>. Fíjate bien en cómo al haber un único bloque simple dentro de <code>&lt;footer&gt;</code>, <strong>NO</strong> se envuelve en ninguna etiqueta <code>&lt;section&gt;</code>.
+        </p>
+
+        <figure class="design-figure">
+          <img
+            src="static/img/katora-fase-1-footer-simple.png"
+            alt="Fase 1: las 3 tarjetas de categorías movidas dentro de main y debajo un footer ficticio simple que contiene únicamente el texto de copyright sin section envolvente"
+            width="1920"
+            height="854"
+            loading="lazy"
+          >
+          <figcaption>
+            <strong>Zona ① (azul):</strong> las 3 categorías ya están dentro de <code>&lt;main&gt;</code>. <strong>Zona ② (verde):</strong> un <code>&lt;footer&gt;</code> sencillo con un único dato legal se escribe directamente con <code>&lt;small&gt;</code> dentro de <code>&lt;footer&gt;</code> (sin <code>&lt;section&gt;</code>).
+          </figcaption>
+        </figure>
+
+        <div class="code-box code-box-good">
+          <div class="code-box-header">
+            <span id="code-fase1-label">✅ Fase 1 — Categorías dentro de &lt;main&gt; + &lt;footer&gt; simple solo con copyright</span>
+            <button type="button" class="copy-btn">Copiar</button>
+          </div>
+          <pre role="region" aria-labelledby="code-fase1-label" tabindex="0"><code>    &lt;!-- Zona ①: ahora dentro de &lt;main&gt;, después de "Welcome to store" --&gt;
+    &lt;section&gt;
+        &lt;h2&gt;Secciones que te pueden interesar&lt;/h2&gt;
+
+        &lt;article&gt;
+            &lt;img src="katorapepecap/mandoyplay.png" alt="Mando y consola Game Accessories"&gt;
+            &lt;h3&gt;Game Accessories&lt;/h3&gt;
+            &lt;a href="#"&gt;Shop Now&lt;/a&gt;
+        &lt;/article&gt;
+        &lt;article&gt;
+            &lt;img src="katorapepecap/webcam.png" alt="Webcam y dispositivos multimedia"&gt;
+            &lt;h3&gt;Multimedia Devices&lt;/h3&gt;
+            &lt;a href="#"&gt;Shop Now&lt;/a&gt;
+        &lt;/article&gt;
+        &lt;article&gt;
+            &lt;img src="katorapepecap/monitor.png" alt="Monitor y accesorios de ordenador"&gt;
+            &lt;h3&gt;Computers Accessories&lt;/h3&gt;
+            &lt;a href="#"&gt;Shop Now&lt;/a&gt;
+        &lt;/article&gt;
+    &lt;/section&gt;
+&lt;/main&gt;
+
+&lt;!-- Zona ②: &lt;footer&gt; ficticio con un solo elemento → NO lleva &lt;section&gt; dentro --&gt;
+&lt;footer&gt;
+    &lt;small&gt;&amp;copy; 2026 Katora. All Rights Reserved.&lt;/small&gt;
+&lt;/footer&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- PUNTO 4: FASE 2 -->
+      <section class="guide-section" id="fase-2-footer-real">
+        <span class="section-kicker kicker-green">4 · Fase 2 de corrección</span>
+        <h2>Fase 2: Incorporar el <code>&lt;footer&gt;</code> real de la plantilla completa</h2>
+        <p class="section-intro">
+          Ahora sustituimos ese pie mínimo de la Fase 1 por el <strong><code>&lt;footer&gt;</code> real del diseño completo de Katora</strong>. Observa la diferencia estructural: aquí el <code>&lt;footer&gt;</code> tiene <strong>7 bloques temáticos hermanos distintos</strong> (contacto de tienda, 3 columnas de enlaces, newsletter, redes sociales y franja legal), así que en este caso <strong>sí es obligatorio</strong> dividirlo en <code>&lt;section&gt;</code> y <code>&lt;nav&gt;</code> independientes.
+        </p>
+
+        <figure class="design-figure">
+          <img
+            src="static/img/katora-fase-2-footer-real.png"
+            alt="Fase 2: sección de categorías al final de main y debajo el footer real completo del diseño Katora dividido en 7 bloques hermanos marcados de 2.a a 2.g"
+            width="1920"
+            height="1321"
+            loading="lazy"
+          >
+          <figcaption>
+            Recuadros del <code>&lt;footer&gt;</code> real: <strong>②.a</strong> datos de la tienda (<code>&lt;section&gt;</code> + <code>&lt;address&gt;</code>), <strong>②.b</strong>, <strong>②.c</strong> y <strong>②.d</strong> menús de navegación (<code>&lt;nav&gt;&lt;ul&gt;</code>), <strong>②.e</strong> boletín (<code>&lt;section&gt;</code> + <code>&lt;form&gt;</code>), <strong>②.f</strong> redes sociales (<code>&lt;section&gt;&lt;ul&gt;</code> por ser 5 iconos) y <strong>②.g</strong> barra legal (<code>&lt;section&gt;</code> + <code>&lt;small&gt;</code>).
+          </figcaption>
+        </figure>
+
+        <div class="code-box code-box-good">
+          <div class="code-box-header">
+            <span id="code-fase2-label">✅ Fase 2 — &lt;footer&gt; real completo correspondiente a los recuadros ②.a – ②.g</span>
+            <button type="button" class="copy-btn">Copiar</button>
+          </div>
+          <pre role="region" aria-labelledby="code-fase2-label" tabindex="0"><code>&lt;!-- Sustituye al &lt;footer&gt; ficticio de la Fase 1 debajo de &lt;/main&gt; --&gt;
+&lt;footer&gt;
+    &lt;!-- ②.a Bloque de información y contacto de la tienda --&gt;
+    &lt;section&gt;
+        &lt;h2&gt;Store&lt;/h2&gt;
+        &lt;img src="katorapepecap/logo-katora.png" alt="Katora."&gt;
+        &lt;address&gt;
+            &lt;div&gt;1223, Main Street, Anytown New York, 38000 USA&lt;/div&gt;
+            &lt;a href="tel:+1888963600"&gt;888 - 963 - 600&lt;/a&gt;
+            &lt;a href="mailto:info@example.com"&gt;info@example.com&lt;/a&gt;
+        &lt;/address&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ②.b Columna de enlaces: Info --&gt;
+    &lt;nav&gt;
+        &lt;h2&gt;Info&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Blog&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;About Us&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Contact Us&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;!-- ②.c Columna de enlaces: Our Polices --&gt;
+    &lt;nav&gt;
+        &lt;h2&gt;Our Polices&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;FAQs&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Privacy Policy&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Refund Policy&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Terms of Service&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;!-- ②.d Columna de enlaces: My Account --&gt;
+    &lt;nav&gt;
+        &lt;h2&gt;My Account&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Shop&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Orders&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Shopping Cart&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Wishlist&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;!-- ②.e Formulario de suscripción --&gt;
+    &lt;section&gt;
+        &lt;h2&gt;Newsletter&lt;/h2&gt;
+        &lt;form&gt;
+            &lt;label for="footer-newsletter"&gt;Correo electrónico&lt;/label&gt;
+            &lt;input type="email" id="footer-newsletter" name="email" placeholder="Your Email ..."&gt;
+            &lt;button type="submit"&gt;Suscribirse&lt;/button&gt;
+            &lt;div&gt;By entering your email, you agree to our &lt;a href="#"&gt;Terms of Service&lt;/a&gt; and &lt;a href="#"&gt;Privacy Policy&lt;/a&gt;.&lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ②.f Redes sociales (5 iconos &gt; 3 hermanos → lista &lt;ul&gt;) --&gt;
+    &lt;section&gt;
+        &lt;h2&gt;Follow Us&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="katorapepecap/facebook.png" alt="Facebook"&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="katorapepecap/twitter.png" alt="Twitter"&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="katorapepecap/skype.png" alt="Skype"&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="katorapepecap/linkedin.png" alt="LinkedIn"&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="katorapepecap/instagram.png" alt="Instagram"&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ②.g Franja inferior de copyright --&gt;
+    &lt;section&gt;
+        &lt;h2&gt;Información legal&lt;/h2&gt;
+        &lt;small&gt;&amp;copy; 2019 Company, Inc. &lt;a href="#"&gt;Privacy&lt;/a&gt; &amp;middot; &lt;a href="#"&gt;Terms&lt;/a&gt;&lt;/small&gt;
+    &lt;/section&gt;
+&lt;/footer&gt;</code></pre>
+        </div>
+
+        <ul class="line-notes">
+          <li>
+            <span class="line-tag tag-good">②.b, ②.c y ②.d en <code>&lt;nav&gt;</code></span>
+            Como cada columna agrupa 4 enlaces de navegación (&gt; 3 hermanos), todas usan <code>&lt;ul&gt;&lt;li&gt;&lt;a href="#"&gt;...&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</code> y su encabezado <code>&lt;h2&gt;</code>.
+          </li>
+          <li>
+            <span class="line-tag tag-good">②.e en <code>&lt;form&gt;</code> y ②.f con enlaces</span>
+            El input del newsletter lleva su <code>&lt;label for="footer-newsletter"&gt;</code> vinculado al <code>id</code> y su <code>&lt;button type="submit"&gt;</code> dentro del formulario; los 5 iconos sociales van como enlaces en lista <code>&lt;ul&gt;</code>, nunca como imágenes sueltas.
+          </li>
+        </ul>
+      </section>
+
+      <!-- PUNTO 5: FASE 3 -->
+      <section class="guide-section" id="fase-3-ampliacion">
+        <span class="section-kicker kicker-purple">5 · Fase 3 de ampliación</span>
+        <h2>Fase 3: Añadir otra sección al <code>&lt;main&gt;</code> (por ejemplo <em>Special Offers</em>) antes del <code>&lt;footer&gt;</code></h2>
+        <p class="section-intro">
+          Como te indiqué en la observación del informe, el recorte inicial que entregaste se quedaba un poco justo para trabajar luego el CSS. El último paso consiste en ampliar el <code>&lt;main&gt;</code> incorporando otra sección del diseño —por ejemplo <strong>Special Offers</strong> (<code>①.b</code>)— justo después de las 3 categorías (<code>①.a</code>), dejando el <strong><code>&lt;footer&gt;</code> real completo</strong> (<code>②</code>) al cierre del <code>&lt;body&gt;</code>.
+        </p>
+
+        <figure class="design-figure">
+          <img
+            src="static/img/katora-fase-3-special-offers.png"
+            alt="Fase 3: ampliación de main con las 3 categorías 1.a y la nueva sección Special Offers 1.b con 4 tarjetas de producto, seguida del footer real completo 2"
+            width="1920"
+            height="2258"
+            loading="lazy"
+          >
+          <figcaption>
+            Estructura final para CSS: dentro de <code>&lt;main&gt;</code> conviven tu sección de 3 categorías (<strong>①.a</strong>) y la nueva sección <em>Special Offers</em> (<strong>①.b</strong>, con 4 artículos en <code>&lt;ul&gt;</code>); fuera de <code>&lt;/main&gt;</code> cierra el documento el <code>&lt;footer&gt;</code> real completo (<strong>②</strong>).
+          </figcaption>
+        </figure>
+
+        <div class="code-box code-box-good">
+          <div class="code-box-header">
+            <span id="code-fase3-label">✅ Fase 3 — Código completo de &lt;main&gt; ampliado (①.a + ①.b) y &lt;footer&gt; real (②)</span>
+            <button type="button" class="copy-btn">Copiar</button>
+          </div>
+          <pre role="region" aria-labelledby="code-fase3-label" tabindex="0"><code>    &lt;!-- ①.a Tus 3 categorías (movidas dentro de &lt;main&gt;) --&gt;
+    &lt;section&gt;
+        &lt;h2&gt;Secciones que te pueden interesar&lt;/h2&gt;
+
+        &lt;article&gt;
+            &lt;img src="katorapepecap/mandoyplay.png" alt="Mando y consola Game Accessories"&gt;
+            &lt;h3&gt;Game Accessories&lt;/h3&gt;
+            &lt;a href="#"&gt;Shop Now&lt;/a&gt;
+        &lt;/article&gt;
+        &lt;article&gt;
+            &lt;img src="katorapepecap/webcam.png" alt="Webcam y dispositivos multimedia"&gt;
+            &lt;h3&gt;Multimedia Devices&lt;/h3&gt;
+            &lt;a href="#"&gt;Shop Now&lt;/a&gt;
+        &lt;/article&gt;
+        &lt;article&gt;
+            &lt;img src="katorapepecap/monitor.png" alt="Monitor y accesorios de ordenador"&gt;
+            &lt;h3&gt;Computers Accessories&lt;/h3&gt;
+            &lt;a href="#"&gt;Shop Now&lt;/a&gt;
+        &lt;/article&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ①.b Nueva sección añadida al &lt;main&gt;: Special Offers (4 tarjetas → lista &lt;ul&gt;) --&gt;
+    &lt;section&gt;
+        &lt;h2&gt;Special Offers&lt;/h2&gt;
+        &lt;div&gt;Morbi venenatis felis tempus feugiat maximus.&lt;/div&gt;
+
+        &lt;ul&gt;
+            &lt;li&gt;
+                &lt;article&gt;
+                    &lt;img src="katorapepecap/Samsung.png" alt="Teléfono móvil Samsung"&gt;
+                    &lt;div&gt;362 Days 7 Hour 23 Min 51 Sec&lt;/div&gt;
+                    &lt;h3&gt;Austrian Crystals Engagement Jewelry Ring&lt;/h3&gt;
+                    &lt;a href="#"&gt;Add to Cart&lt;/a&gt;
+                    &lt;div&gt;$285.00&lt;/div&gt;
+                &lt;/article&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;article&gt;
+                    &lt;img src="katorapepecap/portatil.png" alt="Ordenador portátil"&gt;
+                    &lt;div&gt;362 Days 7 Hour 23 Min 51 Sec&lt;/div&gt;
+                    &lt;h3&gt;Crystal Water Drop Wedding Function Earrings&lt;/h3&gt;
+                    &lt;a href="#"&gt;Add to Cart&lt;/a&gt;
+                    &lt;div&gt;$285.00&lt;/div&gt;
+                &lt;/article&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;article&gt;
+                    &lt;img src="katorapepecap/auriculares.png" alt="Auriculares inalámbricos"&gt;
+                    &lt;div&gt;362 Days 7 Hour 23 Min 51 Sec&lt;/div&gt;
+                    &lt;h3&gt;Crystal Wedding Function Rings&lt;/h3&gt;
+                    &lt;a href="#"&gt;Add to Cart&lt;/a&gt;
+                    &lt;div&gt;$85.00&lt;/div&gt;
+                &lt;/article&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;article&gt;
+                    &lt;img src="katorapepecap/reloj.png" alt="Reloj inteligente"&gt;
+                    &lt;div&gt;362 Days 7 Hour 23 Min 51 Sec&lt;/div&gt;
+                    &lt;h3&gt;Women Crystal Zircon Engagement And Wedding Ring&lt;/h3&gt;
+                    &lt;a href="#"&gt;Add to Cart&lt;/a&gt;
+                    &lt;div&gt;$110.00&lt;/div&gt;
+                &lt;/article&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+&lt;/main&gt;
+
+&lt;!-- ② Footer real completo al cierre del &lt;body&gt; --&gt;
+&lt;footer&gt;
+    &lt;section&gt;
+        &lt;h2&gt;Store&lt;/h2&gt;
+        &lt;img src="katorapepecap/logo-katora.png" alt="Katora."&gt;
+        &lt;address&gt;
+            &lt;div&gt;1223, Main Street, Anytown New York, 38000 USA&lt;/div&gt;
+            &lt;a href="tel:+1888963600"&gt;888 - 963 - 600&lt;/a&gt;
+            &lt;a href="mailto:info@example.com"&gt;info@example.com&lt;/a&gt;
+        &lt;/address&gt;
+    &lt;/section&gt;
+
+    &lt;nav&gt;
+        &lt;h2&gt;Info&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Blog&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;About Us&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Contact Us&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;nav&gt;
+        &lt;h2&gt;Our Polices&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;FAQs&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Privacy Policy&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Refund Policy&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Terms of Service&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;nav&gt;
+        &lt;h2&gt;My Account&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Shop&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Orders&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Shopping Cart&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Wishlist&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;section&gt;
+        &lt;h2&gt;Newsletter&lt;/h2&gt;
+        &lt;form&gt;
+            &lt;label for="footer-newsletter-final"&gt;Correo electrónico&lt;/label&gt;
+            &lt;input type="email" id="footer-newsletter-final" name="email" placeholder="Your Email ..."&gt;
+            &lt;button type="submit"&gt;Suscribirse&lt;/button&gt;
+            &lt;div&gt;By entering your email, you agree to our &lt;a href="#"&gt;Terms of Service&lt;/a&gt; and &lt;a href="#"&gt;Privacy Policy&lt;/a&gt;.&lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h2&gt;Follow Us&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="katorapepecap/facebook.png" alt="Facebook"&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="katorapepecap/twitter.png" alt="Twitter"&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="katorapepecap/skype.png" alt="Skype"&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="katorapepecap/linkedin.png" alt="LinkedIn"&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="katorapepecap/instagram.png" alt="Instagram"&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h2&gt;Información legal&lt;/h2&gt;
+        &lt;small&gt;&amp;copy; 2019 Company, Inc. &lt;a href="#"&gt;Privacy&lt;/a&gt; &amp;middot; &lt;a href="#"&gt;Terms&lt;/a&gt;&lt;/small&gt;
+    &lt;/section&gt;
+&lt;/footer&gt;</code></pre>
+        </div>
+
+        <h3>Resumen de lo que debes aplicar antes del CSS</h3>
+        <ol class="checklist">
+          <li><strong>Mueve</strong> las 3 tarjetas de categorías (<em>Game Accessories</em>, <em>Multimedia Devices</em>, <em>Computers Accessories</em>) dentro de <code>&lt;main&gt;</code> y sustituye sus imágenes <em>Shop Now</em> por enlaces <code>&lt;a href="#"&gt;Shop Now&lt;/a&gt;</code>.</li>
+          <li><strong>Añade</strong> dentro de <code>&lt;main&gt;</code> otra sección más del diseño (como <em>Special Offers</em> con su lista <code>&lt;ul&gt;</code> para las 4 tarjetas) para completar la estructura.</li>
+          <li><strong>Coloca</strong> debajo de <code>&lt;/main&gt;</code> el <code>&lt;footer&gt;</code> real de <em>Katora.</em> dividido en sus bloques hermanos (<em>Store</em>, <em>Info</em>, <em>Our Polices</em>, <em>My Account</em>, <em>Newsletter</em>, <em>Follow Us</em> e <em>Información legal</em>).</li>
+          <li><strong>Recuerda la regla general:</strong> si un <code>&lt;footer&gt;</code> tuviera solo un bloque sencillo (como en la Fase 1), no lo metas dentro de un único <code>&lt;section&gt;</code>; solo se usa <code>&lt;section&gt;</code> o <code>&lt;nav&gt;</code> cuando el pie contiene varios bloques hermanos.</li>
+        </ol>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>DIW · CFGS Desarrollo de Aplicaciones Web (DAW) · Práctica E1.3 — HTML5 Semántico</p>
+    <p>Material de aclaración específica sobre la estructura de <code>&lt;footer&gt;</code> y <code>&lt;main&gt;</code>.</p>
+  </footer>
+</body>
+</html>
